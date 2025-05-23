@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            font-family: sans-serif;
+            text-align: center;
+        }
+        input,button{
+            padding: 5px;
+        }
+        #container{
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            gap: 20px;
+        }
+        #container>div{
+            border: 1px solid rgb(44, 44, 230);
+            box-shadow: rgb(79, 79, 230) 0px 2px 4px 0px, rgb(79, 79, 230) 0px 2px 16px 0px;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Feedback</h1>
+    <input type="textarea" id="feedback">
+    <button onclick="addFeedbacks()">Submit</button>
+    <div id="container"></div>
+</body>
+</html>
+
+<script>
+    let container = document.getElementById('container');
+    //add feedbacks
+
+    async function addFeedbacks(){
+        let feed = document.getElementById('feedback');
+        let obj = {
+            feedback : feed.value
+        }
+        await fetch('https://feedbacks-e4eba-default-rtdb.asia-southeast1.firebasedatabase.app/feedbacks.json',{
+            method : 'POST',
+            headers : {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(obj)
+        })
+        
+       
+        feed.value = "";
+        
+    }
+
+   
+   
+</script>
